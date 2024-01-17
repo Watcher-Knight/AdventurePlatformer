@@ -35,7 +35,7 @@ Transform:
   - {fileID: 137450484396674075}
   - {fileID: 2700035111929064153}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2050502561270808001
 SpriteRenderer:
@@ -152,7 +152,7 @@ MonoBehaviour:
   _eventTag: {fileID: 11400000, guid: feeb93386cd56574e9c68837da222ce0, type: 2}
   action:
     items:
-    - {fileID: 0}
+    - {fileID: 6200775569208901778}
 --- !u!1 &1988102683602799567
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +226,7 @@ MonoBehaviour:
   selectionEventTag: {fileID: 11400000, guid: 6d4c0f4ff0bd5d0468f9923704b2d84c, type: 2}
   resetableComponents:
     items:
-    - {fileID: 0}
+    - {fileID: 6200775569208901778}
 --- !u!114 &2154154515089672724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,10 +284,18 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Button
       m_Flags: 0
+    - m_Name: 
+      m_Id: 645521dd-05f7-4110-acda-7c99a66cfb58
+      m_Path: <Keyboard>/z
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Button
+      m_Flags: 0
     m_Flags: 0
   effect:
     items:
-    - {fileID: 0}
+    - {fileID: 1750967786127796022}
 --- !u!114 &6692224074455273492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +333,46 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Axis
       m_Flags: 0
+    - m_Name: 2D Vector
+      m_Id: fc5d6205-4894-415d-851a-33df89b305b8
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Axis
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 2a7c20e2-b92b-41df-99ef-6a47e568fef9
+      m_Path: <Keyboard>/upArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Axis
+      m_Flags: 8
+    - m_Name: down
+      m_Id: b1c7ab18-6e4e-4f64-9ffb-0c98ab2d8092
+      m_Path: <Keyboard>/downArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Axis
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 28434f5e-765f-4d34-9eb0-26aadd2101d8
+      m_Path: <Keyboard>/leftArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Axis
+      m_Flags: 8
+    - m_Name: right
+      m_Id: b6b87ac5-1885-42cc-b8c3-df4e01e8d8c3
+      m_Path: <Keyboard>/rightArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Axis
+      m_Flags: 8
     m_Flags: 0
   _action: {fileID: 2154154515089672724}
 --- !u!1 &2407997339589914926
