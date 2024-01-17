@@ -1,24 +1,16 @@
 using ArchitectureLibrary;
+using UltEvents;
 using UnityEngine;
 using UnityEditor;
-using System.IO;
 
 [AddComponentMenu("Test")]
 public class TestMono : MonoBehaviour
 {
-    [SerializeField] private Vector2 direction = Vector2.zero;
-    [ContextMenu("Test")]
-    private void Test()
-    {
-        Debug.Log(Converter.GetDirection(direction));
-    }
-}
+    [SerializeField] private PercentReference value;
 
-public class Test
-{
-    [MenuItem("Test/TestLog")]
-    static void MyTest()
+    [ContextMenu("Test")]
+    public void Test()
     {
-        Debug.Log(SceneView.lastActiveSceneView.pivot);
+        Debug.Log(name);
     }
 }
