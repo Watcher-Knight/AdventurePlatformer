@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0941617a9a4f875488841a48771e7daa, type: 3}
   m_Name: ControlReturnTime
   m_EditorClassIdentifier: 
-  _value: 2
+  _value: 0.75
