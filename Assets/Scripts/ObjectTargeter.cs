@@ -1,75 +1,71 @@
 using System;
 using System.Collections.Generic;
-using ArchitectureLibrary;
+using System.Linq;
 using UnityEngine;
+using ArchitectureLibrary;
 
-[AddComponentMenu("Custom/Object Targeter")]
-public class ObjectTargeter : MonoBehaviour, IAxisControllable2D, IActivateable
+public class ObjectTargeter
 {
-    [SerializeField] private bool raySpread = true;
-    [SerializeField] private VariableReference<float> distance = 30f;
-    [SerializeField][DrawIf("raySpread")] private VariableReference<float> angle = 30f;
-    [SerializeField][DrawIf("raySpread")] private VariableReference<float> raySpacing = 3f;
-    [SerializeField] private new Tag tag;
-    [SerializeField] private EventTag eventTag;
-    [SerializeField] private bool debug = false;
+    public readonly float RaySpacing = 3f;
+    public Collider2D TargetCollider;
 
-    public new Collider2D collider { get; private set; }
-    public Collider2D[] colliders { get; private set; }
-    private Vector2 _direction;
-    private Vector2 direction
+    public void Update(IData data, Vector2 position, Vector2 direction, LayerMask layer)
     {
-        get
-        {
-            if (isActive) return _direction;
-            return Vector2.zero;
-        }
-    }
-    public Action<Collider2D> onTargetChange;
-    public bool isActive { get; set; } = true;
-
-    public void Control(Vector2 direction) => _direction = direction;
-
-    private void Update()
-    {
-        List<Collider2D> colliders = new();
+        IEnumerable<Collider2D> colliders = new Collider2D[0];
         if (direction != Vector2.zero)
         {
-            if (raySpread && angle > 0)
+            if (data.Angle > 0)
             {
-                float rotation = Calculator.DirectionToRotation(direction);
-
-                float spacing = (raySpacing > 0.1f) ? raySpacing : 0.1f;
-                int rayAmount = (int)Math.Ceiling(angle / spacing) + 1;
-
-                for (float i = -0.5f; i <= 0.5f; i += 1f / rayAmount)
-                {
-                    float currentRotation = rotation - (i * angle.value);
-                    Vector2 currentDirection = Calculator.RotationToDirection(currentRotation);
-
-                    Cast cast = new Raycast(transform.position, currentDirection, distance, tag, debug);
-
-                    foreach (Collider2D collider in cast)
-                    {
-                        if (!colliders.Contains(collider)) colliders.Add(collider);
-                    }
-                }
+                colliders = GetCollidersInCast(data, position, direction, layer);
             }
             else
             {
-                Cast cast = new Raycast(transform.position, direction, distance, tag, debug);
-                colliders = new List<Collider2D>(cast);
+                RaycastHit2D[] raycasts = Physics2D.RaycastAll(position, direction, data.Distance, layer);
+                colliders = raycasts.Select(cast => cast.collider);
             }
         }
 
-        this.colliders = colliders.ToArray();
+        Collider2D closestCollider = GetClosestCollider(colliders, position, direction);
 
+        if (TargetCollider != closestCollider)
+        {
+            TargetCollider = closestCollider;
+        }
+
+        if (Input.GetKeyDown(KeyCode.D)) Debug.Log(TargetCollider);
+    }
+
+    private Collider2D[] GetCollidersInCast(IData data, Vector2 position, Vector2 direction, LayerMask layer)
+    {
+        IEnumerable<Collider2D> colliders = new Collider2D[0];
+
+        float rotation = Calculator.ToRotation(direction);
+        float spacing = (RaySpacing > 0.1f) ? RaySpacing : 0.1f;
+        int rayAmount = (int)Math.Ceiling(data.Angle / spacing) + 1;
+
+        for (float i = -0.5f; i <= 0.5f; i += 1f / rayAmount)
+        {
+            float currentRotation = rotation - (i * data.Angle);
+            Vector2 currentDirection = Calculator.ToDirection(currentRotation);
+
+            RaycastHit2D[] raycasts = Physics2D.RaycastAll(position, currentDirection, data.Distance, layer);
+            if (data.Debug) Debug.DrawRay(position, currentDirection * data.Distance, Color.red);
+
+            IEnumerable<Collider2D> currentColliders = raycasts.Select(cast => cast.collider);
+            colliders = colliders.Union(currentColliders);
+        }
+
+        return colliders.ToArray();
+    }
+
+    private Collider2D GetClosestCollider(IEnumerable<Collider2D> colliders, Vector2 position, Vector2 direction)
+    {
         float smallestDistance = Mathf.Infinity;
         Collider2D closestCollider = null;
         foreach (Collider2D collider in colliders)
         {
-            float distance = Calculator.GetDistance(transform.position, collider.transform.position);
-            Vector2 targetPoint = transform.position;
+            float distance = Calculator.GetDistance(position, collider.transform.position);
+            Vector2 targetPoint = position;
             targetPoint += direction * distance;
 
             if (Calculator.GetDistance(collider.transform.position, targetPoint) < smallestDistance)
@@ -78,14 +74,13 @@ public class ObjectTargeter : MonoBehaviour, IAxisControllable2D, IActivateable
                 smallestDistance = Calculator.GetDistance(collider.transform.position, targetPoint);
             }
         }
+        return closestCollider;
+    }
 
-        if (collider != closestCollider)
-        {
-            Events.SendMessage(collider, eventTag, true);
-            collider = closestCollider;
-            Events.SendMessage(collider, eventTag);
-            onTargetChange(collider);
-        }
+    public interface IData
+    {
+        float Distance { get; }
+        float Angle { get; }
+        bool Debug { get; }
     }
 }
-public delegate void Action<T>(T value);
