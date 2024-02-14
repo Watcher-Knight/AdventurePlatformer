@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField][AutoAssign] private BoxCollider2D Collider;
     [SerializeField] private LayerMask PlatformLayer;
     [SerializeField] private LayerMask GrapplePointLayer;
+    [SerializeField] private float JumpBufferTime = 0.2f;
 
     private GameInput Controls;
     // String References: PlayerMovenentEditor
@@ -21,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     private readonly Jumper Jumper = new();
     private readonly Grappler Grappler = new();
     private readonly ObjectTargeter Targeter = new();
+
+    private InputBuffer JumpBuffer = new();
 
     private void OnEnable()
     {
@@ -33,7 +36,8 @@ public class PlayerMovement : MonoBehaviour
         Controls ??= new();
         Controls.Player.Enable();
 
-        Controls.Player.Jump.performed += _ => Jump();
+        JumpBuffer.Action = Jump;
+        Controls.Player.Jump.performed += _ => JumpBuffer.Invoke(JumpBufferTime);
         Controls.Player.Jump.canceled += _ => CancelJump();
         Controls.Player.Grapple.performed += _ => Grapple();
         Controls.Player.Grapple.canceled += _ => CancelGrapple();
@@ -53,11 +57,16 @@ public class PlayerMovement : MonoBehaviour
         Vector2 targeterControls = Controls.Player.Target.ReadValue<Vector2>();
 
         Targeter.Update(TargeterData, transform.position, targeterControls, GrapplePointLayer);
+        JumpBuffer.Update(Time.deltaTime);
     }
-    private void Jump()
+    private bool Jump()
     {
         if (StateMachine.ToJump())
+        {
             Jumper.Jump(JumperData, Rigidbody);
+            return true;
+        }
+        return false;
     }
     private void CancelJump()
     {
