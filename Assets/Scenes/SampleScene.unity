@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!50 &2159836 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 6709179728170804839, guid: 0a6e50f8bef24f54186dd44d6afea51f, type: 3}
+  m_PrefabInstance: {fileID: 1558854403559863598}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,8 +344,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 0
   test:
-    name: Dafault
-    id: 1
+    Name: 
+    Id: 0
   text: 
 --- !u!1 &1307974223
 GameObject:
@@ -353,6 +358,7 @@ GameObject:
   - component: {fileID: 1307974225}
   - component: {fileID: 1307974224}
   - component: {fileID: 1307974226}
+  - component: {fileID: 1307974227}
   m_Layer: 7
   m_Name: GrapplePoint
   m_TagString: Untagged
@@ -462,6 +468,33 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1307974227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307974223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93ba23574a3749240b7f918b63ccda4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Renderer: {fileID: 1307974224}
+  SelectionTag:
+    Name: Select
+    Id: 1
+  DeselectionTag:
+    Name: Deselect
+    Id: 2
+  DestoyTag:
+    Name: Destroy
+    Id: 4
+--- !u!61 &2069573064 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5463176620728662235, guid: 0a6e50f8bef24f54186dd44d6afea51f, type: 3}
+  m_PrefabInstance: {fileID: 1558854403559863598}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1558854403559863598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -475,12 +508,44 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5165802322489404807, guid: 0a6e50f8bef24f54186dd44d6afea51f, type: 3}
+      propertyPath: Collider
+      value: 
+      objectReference: {fileID: 2069573064}
+    - target: {fileID: 5165802322489404807, guid: 0a6e50f8bef24f54186dd44d6afea51f, type: 3}
+      propertyPath: MoverData
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e1256783fa3b8d45b199ef5b835359e, type: 2}
+    - target: {fileID: 5165802322489404807, guid: 0a6e50f8bef24f54186dd44d6afea51f, type: 3}
+      propertyPath: Rigidbody
+      value: 
+      objectReference: {fileID: 2159836}
+    - target: {fileID: 5165802322489404807, guid: 0a6e50f8bef24f54186dd44d6afea51f, type: 3}
+      propertyPath: JumperData
+      value: 
+      objectReference: {fileID: 11400000, guid: c67b27de423ff2040a422936eb1a8613, type: 2}
+    - target: {fileID: 5165802322489404807, guid: 0a6e50f8bef24f54186dd44d6afea51f, type: 3}
+      propertyPath: GrapplerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 46249735a4431734eb36cd29b1e9da10, type: 2}
+    - target: {fileID: 5165802322489404807, guid: 0a6e50f8bef24f54186dd44d6afea51f, type: 3}
+      propertyPath: TargeterData
+      value: 
+      objectReference: {fileID: 11400000, guid: dfb61084716d7e146a039f761ac7b726, type: 2}
+    - target: {fileID: 5165802322489404807, guid: 0a6e50f8bef24f54186dd44d6afea51f, type: 3}
       propertyPath: targeterData
       value: 
       objectReference: {fileID: 11400000, guid: dfb61084716d7e146a039f761ac7b726, type: 2}
     - target: {fileID: 5165802322489404807, guid: 0a6e50f8bef24f54186dd44d6afea51f, type: 3}
+      propertyPath: PlatformLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165802322489404807, guid: 0a6e50f8bef24f54186dd44d6afea51f, type: 3}
       propertyPath: platformLayer.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165802322489404807, guid: 0a6e50f8bef24f54186dd44d6afea51f, type: 3}
+      propertyPath: GrapplePointLayer.m_Bits
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 5165802322489404807, guid: 0a6e50f8bef24f54186dd44d6afea51f, type: 3}
       propertyPath: grapplePointLayer.m_Bits

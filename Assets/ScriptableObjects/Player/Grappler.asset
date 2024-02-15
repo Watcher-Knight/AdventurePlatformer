@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 30
   <Acceleration>k__BackingField:
-    _value: 0.75
+    b_Value: 0.75
   <Slowdown>k__BackingField:
-    _value: 0.75
+    b_Value: 0.75
   <ControlReturnTime>k__BackingField: 0.5
   <SelectionTag>k__BackingField:
-    name: 
-    id: 0
+    Name: Select
+    Id: 1
   <DeselectionTag>k__BackingField:
-    name: 
-    id: 0
+    Name: Deselect
+    Id: 2
