@@ -28,34 +28,43 @@ public class MovementStateMachine
     private bool IsMoving(Rigidbody2D rigidbody) =>
         rigidbody.velocity.x > 0.05f || rigidbody.velocity.x < -0.05f;
 
-    public bool ToIdle(Rigidbody2D rigidbody)
+    private void ToIdle(Rigidbody2D rigidbody)
     {
         switch (CurrentState)
         {
             case State.Fall:
                 CurrentState = State.Idle;
                 CanAirJump = true;
-                return true;
+                break;
             case State.Walk:
                 if (!IsMoving(rigidbody))
                 {
                     CurrentState = State.Idle;
                     CanAirJump = true;
-                    return true;
                 }
                 break;
         }
-        return false;
     }
-    public bool ToWalk()
+    private void ToWalk()
     {
         switch (CurrentState)
         {
             case State.Idle:
                 CurrentState = State.Walk;
-                return true;
+                break;
         }
-        return false;
+    }
+    private void ToFall()
+    {
+        switch (CurrentState)
+        {
+            case State.Walk:
+            case State.Idle:
+            case State.Jump:
+            case State.Grapple:
+                CurrentState = State.Fall;
+                break;
+        }
     }
     public bool ToJump()
     {
@@ -74,19 +83,6 @@ public class MovementStateMachine
                     return true;
                 }
                 break;
-        }
-        return false;
-    }
-    public bool ToFall()
-    {
-        switch (CurrentState)
-        {
-            case State.Walk:
-            case State.Idle:
-            case State.Jump:
-            case State.Grapple:
-                CurrentState = State.Fall;
-                return true;
         }
         return false;
     }
