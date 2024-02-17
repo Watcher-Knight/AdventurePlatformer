@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ArchitectureLibrary;
 using UnityEngine;
 
@@ -13,6 +14,13 @@ public class TestMono : MonoBehaviour
         int Number { get; }
         EventTag EventTag { get; }
         string Text { get; }
+    }
+
+    [ContextMenu("Test")]
+    private void Test()
+    {
+        IEnumerable<int> items = new List<int>() { 4, 6, 3 };
+        Debug.Log(items.IndexOf(i => i > 3));
     }
 }
 
