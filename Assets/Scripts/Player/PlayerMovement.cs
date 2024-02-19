@@ -1,6 +1,7 @@
 using UnityEngine;
 using ArchitectureLibrary;
 
+[UpdateEditor]
 [AddComponentMenu(ComponentPaths.PlayerMovement)]
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,9 +14,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask PlatformLayer;
     [SerializeField] private LayerMask GrapplePointLayer;
     [SerializeField] private float JumpBufferTime = 0.2f;
+    [SerializeField] private float GrappleBufferTime = 0.2f;
+    [DisplayPlayMode] private MovementStateMachine.State CurrentState => StateMachine.CurrentState;
 
     private GameInput Controls;
-    // String References: PlayerMovenentEditor
     private MovementStateMachine StateMachine;
 
     private readonly Mover Mover = new();
@@ -23,7 +25,8 @@ public class PlayerMovement : MonoBehaviour
     private readonly Grappler Grappler = new();
     private readonly ObjectTargeter Targeter = new();
 
-    private InputBuffer JumpBuffer = new();
+    private readonly InputBuffer JumpBuffer = new();
+    private readonly InputBuffer GrappleBuffer = new();
 
     private void OnEnable()
     {
@@ -37,9 +40,10 @@ public class PlayerMovement : MonoBehaviour
         Controls.Player.Enable();
 
         JumpBuffer.Action = Jump;
+        GrappleBuffer.Action = Grapple;
         Controls.Player.Jump.performed += _ => JumpBuffer.Invoke(JumpBufferTime);
+        Controls.Player.Grapple.performed += _ => GrappleBuffer.Invoke(GrappleBufferTime);
         Controls.Player.Jump.canceled += _ => CancelJump();
-        Controls.Player.Grapple.performed += _ => Grapple();
         Controls.Player.Grapple.canceled += _ => CancelGrapple();
     }
 
@@ -58,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
 
         Targeter.Update(TargeterData, transform.position, targeterControls, GrapplePointLayer);
         JumpBuffer.Update(Time.deltaTime);
+        GrappleBuffer.Update(Time.deltaTime);
     }
     private bool Jump()
     {
@@ -72,10 +77,14 @@ public class PlayerMovement : MonoBehaviour
     {
         Jumper.Cancel(JumperData, Rigidbody);
     }
-    private void Grapple()
+    private bool Grapple()
     {
-        if (StateMachine.ToGrapple(Targeter.TargetCollider))
-            Grappler.Grapple(Rigidbody);
+        if (StateMachine.ToGrapple(Grappler, Collider))
+        {
+            Grappler.Grapple(Collider);
+            return true;
+        }
+        return false; 
     }
     private void CancelGrapple()
     {

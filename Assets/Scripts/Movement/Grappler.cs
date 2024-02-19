@@ -7,12 +7,13 @@ public class Grappler
     private Collider2D TargetCollider;
     private bool IsGrappling = false;
     private float GravityScale;
+    public bool CanGrapple(Collider2D collider) => !IsGrappling && TargetCollider != null && !TargetCollider.bounds.Intersects(collider.bounds);
     public Action OnFinish;
 
     public void Update(IData data, Collider2D target, Collider2D collider, Mover mover, float deltaTime)
     {
-        if (CheckTarget(target)) ChangeTarget(target, data);
-        if (IsGrappling)
+        if (CheckTarget(target, collider)) ChangeTarget(target, data);
+        if (IsGrappling && TargetCollider != null)
         {
             MoveTowardsTarget(collider, data, deltaTime);
             if (ReachedPoint(collider)) Finish(collider, data);
@@ -20,10 +21,11 @@ public class Grappler
         ControlMovement(mover, data, deltaTime);
     }
 
-    public void Grapple(Rigidbody2D rigidbody)
+    public void Grapple(Collider2D collider)
     {
-        if (!IsGrappling)
+        if (CanGrapple(collider))
         {
+            Rigidbody2D rigidbody = collider.GetRigidbody();
             IsGrappling = true;
             GravityScale = rigidbody.gravityScale;
             rigidbody.gravityScale = 0;
@@ -54,7 +56,7 @@ public class Grappler
     private bool ReachedPoint(Collider2D collider) =>
         TargetCollider.bounds.Intersects(collider.bounds);
 
-    private bool CheckTarget(Collider2D target) =>
+    private bool CheckTarget(Collider2D target, Collider2D collider) =>
         target != TargetCollider && IsGrappling == false;
 
     private void ChangeTarget(Collider2D target, IData data)

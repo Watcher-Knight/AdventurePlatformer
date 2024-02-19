@@ -86,9 +86,9 @@ public class MovementStateMachine
         }
         return false;
     }
-    public bool ToGrapple(Collider2D target)
+    public bool ToGrapple(Grappler grappler, Collider2D collider)
     {
-        if (target != null)
+        if (grappler.CanGrapple(collider))
         {
             switch (CurrentState)
             {
