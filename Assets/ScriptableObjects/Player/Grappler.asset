@@ -16,11 +16,9 @@ MonoBehaviour:
   <Acceleration>k__BackingField:
     b_Value: 0.75
   <Slowdown>k__BackingField:
-    b_Value: 0.75
+    b_Value: 0.266
   <ControlReturnTime>k__BackingField: 0.5
   <SelectionTag>k__BackingField:
-    Name: Select
     Id: 1
   <DeselectionTag>k__BackingField:
-    Name: Deselect
     Id: 2

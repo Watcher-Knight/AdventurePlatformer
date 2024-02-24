@@ -2,11 +2,11 @@ using UnityEditor;
 using UnityEngine;
 using ArchitectureLibrary;
 
-[CustomPropertyDrawer(typeof(Test))]
-public class TestDrawer : PropertyDrawer
+//[CustomEditor(typeof(TestMono))]
+public class TestDrawer : Editor
 {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    public override void OnInspectorGUI()
     {
-        property.FindPropertyRelative("Value").intValue = EditorGUILayout.IntField(label, property.FindPropertyRelative("Value").intValue);
+        EditorGUILayout.BeginVertical();
     }
 }

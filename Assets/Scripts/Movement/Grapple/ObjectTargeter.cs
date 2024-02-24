@@ -31,8 +31,6 @@ public class ObjectTargeter
         {
             TargetCollider = closestCollider;
         }
-
-        if (Input.GetKeyDown(KeyCode.D)) Debug.Log(TargetCollider);
     }
 
     private Collider2D[] GetCollidersInCast(IData data, Vector2 position, Vector2 direction, LayerMask layer)

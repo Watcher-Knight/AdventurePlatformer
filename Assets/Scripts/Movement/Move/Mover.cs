@@ -9,18 +9,18 @@ public class Mover
     /// <summary>
     /// Moves object in direction specified. Best if used in fixed delta time.
     /// </summary>
-    public void Update(IData data, Rigidbody2D rigidbody, float direction, float deltaTime)
+    public void Update(IData data, Rigidbody2D rigidbody, float direction, Percentage control, float deltaTime)
     {
-        Move(data, rigidbody, direction, deltaTime);
+        Move(data, rigidbody, direction, control, deltaTime);
     }
 
-    private void Move(IData data, Rigidbody2D rigidbody, float direction, float deltaTime)
+    private void Move(IData data, Rigidbody2D rigidbody, float direction, Percentage control, float deltaTime)
     {
         float targetSpeed = Math.Sign(direction) * data.Speed;
         float speedDifference = targetSpeed - rigidbody.velocity.x;
         Percentage accelerationPercent = (Math.Abs(targetSpeed) > 0) ? data.Acceleration : data.Deceleration;
         float accelerationRate = accelerationPercent / deltaTime;
-        float force = Mathf.Pow(Math.Abs(speedDifference) * accelerationRate, Control) * Math.Sign(speedDifference);
+        float force = Mathf.Pow(Math.Abs(speedDifference) * accelerationRate, control) * Math.Sign(speedDifference);
         rigidbody.AddForce(Vector2.right * force);
     }
 

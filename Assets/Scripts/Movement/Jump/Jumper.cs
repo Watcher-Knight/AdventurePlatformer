@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Jumper
 {
-    public Action onFinish;
+    public Action OnFinish;
     public bool IsJumping = false;
 
     public Jumper()
     {
-        onFinish += () => { IsJumping = false; };
+        OnFinish += () => { IsJumping = false; };
     }
     
     public void Jump(IData data, Rigidbody2D rigidbody)
@@ -25,7 +25,7 @@ public class Jumper
     }
     public void Update(Rigidbody2D rigidbody)
     {
-        if (IsJumping && rigidbody.velocity.y < 0f) onFinish();
+        if (IsJumping && rigidbody.velocity.y < 0f) OnFinish();
     }
 
     public interface IData

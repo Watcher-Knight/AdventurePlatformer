@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf63ca9c0b29b0e4eb9e600038812484, type: 3}
   m_Name: Jumper
   m_EditorClassIdentifier: 
-  <Force>k__BackingField: 30
+  <Force>k__BackingField: 25
   <JumpCut>k__BackingField:
-    _value: 0.75
+    b_Value: 0.75

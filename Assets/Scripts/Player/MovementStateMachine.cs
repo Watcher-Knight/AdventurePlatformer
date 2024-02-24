@@ -14,9 +14,9 @@ public class MovementStateMachine
 
     public Action<State> onStateChange;
 
-    public MovementStateMachine(Jumper jumper, Grappler grappler)
+    public MovementStateMachine(JumperBehavior jumper, GrapplerBehavior grappler)
     {
-        jumper.onFinish += () => ToFall();
+        jumper.OnFinish += () => ToFall();
         grappler.OnFinish += () => ToFall();
     }
 
@@ -86,9 +86,9 @@ public class MovementStateMachine
         }
         return false;
     }
-    public bool ToGrapple(Grappler grappler, Collider2D collider)
+    public bool ToGrapple(GrapplerBehavior grappler, Collider2D collider)
     {
-        if (grappler.CanGrapple(collider))
+        if (grappler.CanGrapple)
         {
             switch (CurrentState)
             {

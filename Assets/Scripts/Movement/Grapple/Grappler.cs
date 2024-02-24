@@ -10,7 +10,7 @@ public class Grappler
     public bool CanGrapple(Collider2D collider) => !IsGrappling && TargetCollider != null && !TargetCollider.bounds.Intersects(collider.bounds);
     public Action OnFinish;
 
-    public void Update(IData data, Collider2D target, Collider2D collider, Mover mover, float deltaTime)
+    public void Update(IData data, Collider2D target, Collider2D collider, MoverBehavior mover, float deltaTime)
     {
         if (CheckTarget(target, collider)) ChangeTarget(target, data);
         if (IsGrappling && TargetCollider != null)
@@ -66,10 +66,10 @@ public class Grappler
         TargetCollider?.SendMessage(data.SelectionTag);
     }
 
-    private void ControlMovement(Mover mover, IData data, float deltaTime)
+    private void ControlMovement(MoverBehavior mover, IData data, float deltaTime)
     {
-        if (IsGrappling && !mover.Control.Min) mover.Control = 0;
-        if (!IsGrappling && !mover.Control.Max) mover.Control += deltaTime / data.ControlReturnTime;
+        if (IsGrappling && !mover.ControlLevel.Min) mover.ControlLevel = 0;
+        if (!IsGrappling && !mover.ControlLevel.Max) mover.ControlLevel += deltaTime / data.ControlReturnTime;
     }
 
     public interface IData
