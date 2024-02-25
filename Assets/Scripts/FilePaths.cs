@@ -8,6 +8,7 @@ public static class ComponentPaths
     public const string PlayerController = Player + "/Player Controller";
     public const string PlayerMovement = Player + "/Player Movement";
     public const string PlayerCamera = Player + "/Player Camera";
+    public const string PlayerLifeCycleBehavior = Player + "/Life Cycle";
 
 
     public const string Movement = Master + "/Movement";
@@ -15,6 +16,13 @@ public static class ComponentPaths
     public const string MoverBehavior = Movement + "/Mover";
     public const string JumperBehavior = Movement + "/Jumper";
     public const string GrapplerBehavior = Movement + "/Grappler";
+
+
+    public const string LifeCycle = Master + "/Life Cycle";
+
+    public const string HazardBehavior = LifeCycle + "/Hazard";
+    public const string RespawnPointBehavior = LifeCycle + "/Respawn Point";
+
 
     public const string GrapplePoint = Master + "/Grapple Point";
 }

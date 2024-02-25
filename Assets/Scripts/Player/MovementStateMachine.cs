@@ -22,7 +22,7 @@ public class MovementStateMachine
 
     public State CurrentState { get; private set; } = State.Idle;
 
-    public bool CanAirJump = true;
+    private bool CanAirJump = true;
     private bool IsGrounded(BoxCollider2D collider, LayerMask platformLayer) =>
         Collisions.IsTouching(collider, ArchitectureLibrary.Direction.Down, platformLayer);
     private bool IsMoving(Rigidbody2D rigidbody) =>
@@ -109,4 +109,6 @@ public class MovementStateMachine
         if (IsGrounded(collider, layerMask)) ToIdle(rigidbody);
         if (IsMoving(rigidbody)) ToWalk();
     }
+
+    public void Reset() => CurrentState = State.Idle;
 }

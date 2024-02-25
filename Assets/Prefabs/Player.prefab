@@ -11,6 +11,10 @@ GameObject:
   - component: {fileID: 8240791050350610649}
   - component: {fileID: 6709179728170804839}
   - component: {fileID: 5165802322489404807}
+  - component: {fileID: 7204289064240609941}
+  - component: {fileID: 5010491993714797008}
+  - component: {fileID: 6824612720593678861}
+  - component: {fileID: 8047237621241225846}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -73,21 +77,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d5353f31e705214182bb726fed81e9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoverData: {fileID: 11400000, guid: 3e1256783fa3b8d45b199ef5b835359e, type: 2}
-  JumperData: {fileID: 11400000, guid: c67b27de423ff2040a422936eb1a8613, type: 2}
-  GrapplerData: {fileID: 11400000, guid: 46249735a4431734eb36cd29b1e9da10, type: 2}
-  TargeterData: {fileID: 11400000, guid: dfb61084716d7e146a039f761ac7b726, type: 2}
   Rigidbody: {fileID: 6709179728170804839}
   Collider: {fileID: 3844050207655312262}
   DataChannel: {fileID: 11400000, guid: 6006273ce51097644b92bdfc23781da4, type: 2}
+  Mover: {fileID: 5010491993714797008}
+  Grappler: {fileID: 6824612720593678861}
+  Jumper: {fileID: 8047237621241225846}
   PlatformLayer:
     serializedVersion: 2
     m_Bits: 64
+  ResetTag:
+    Id: 5
+--- !u!114 &7204289064240609941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931707954253560436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a43ba12163b594d46bc7565e9cade691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Movement: {fileID: 5165802322489404807}
+  Data: {fileID: 11400000, guid: 4676c0ac6f0ca9f448a6faf420a3b511, type: 2}
+--- !u!114 &5010491993714797008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931707954253560436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b972d5ce8e2ca4478c868f173c50e68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 3e1256783fa3b8d45b199ef5b835359e, type: 2}
+  Rigidbody: {fileID: 6709179728170804839}
+--- !u!114 &6824612720593678861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931707954253560436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbf1d988e851443468af577efe99f8d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargeterData: {fileID: 11400000, guid: dfb61084716d7e146a039f761ac7b726, type: 2}
+  GrapplerData: {fileID: 11400000, guid: 46249735a4431734eb36cd29b1e9da10, type: 2}
+  Origin: {fileID: 137450484396674075}
+  Collider: {fileID: 3844050207655312262}
+  Mover: {fileID: 5010491993714797008}
   GrapplePointLayer:
     serializedVersion: 2
     m_Bits: 128
-  JumpBufferTime: 0.05
-  GrappleBufferTime: 0.1
+--- !u!114 &8047237621241225846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931707954253560436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b06ae46c41cc7498f72e9aa854240b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: c67b27de423ff2040a422936eb1a8613, type: 2}
+  Rigidbody: {fileID: 6709179728170804839}
 --- !u!1 &7192488245925243435
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,6 +161,7 @@ GameObject:
   - component: {fileID: 137450484396674075}
   - component: {fileID: 3830017405579725708}
   - component: {fileID: 3844050207655312262}
+  - component: {fileID: 923983152672597765}
   m_Layer: 0
   m_Name: Center
   m_TagString: Untagged
@@ -218,3 +281,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &923983152672597765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7192488245925243435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db0ec50ae2b3530458382ed647ddbda5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HazardEventTag:
+    Id: 3
+  RespawnPointEventTag:
+    Id: 4
+  ResetTag:
+    Id: 5
+  Transform: {fileID: 8240791050350610649}

@@ -3,7 +3,7 @@ using ArchitectureLibrary;
 
 [UpdateEditor]
 [AddComponentMenu(ComponentPaths.PlayerMovement)]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IEventListener
 {
     [SerializeField][AutoAssign] private Rigidbody2D Rigidbody;
     [SerializeField][AutoAssign] private BoxCollider2D Collider;
@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField][AutoAssign] private GrapplerBehavior Grappler;
     [SerializeField][AutoAssign] private JumperBehavior Jumper;
     [SerializeField] private LayerMask PlatformLayer;
+    [SerializeField] private EventTag ResetTag;
     [DisplayPlayMode] private MovementStateMachine.State CurrentState => StateMachine.CurrentState;
 
     private MovementStateMachine StateMachine;
@@ -59,5 +60,17 @@ public class PlayerMovement : MonoBehaviour
     public void Aim(Vector2 direction)
     {
         Grappler.Target(direction);
+    }
+
+    public void Invoke(EventTag tag)
+    {
+        if (tag == ResetTag)
+        {
+            StateMachine.Reset();
+            Grappler.Cancel();
+            Jumper.Cancel();
+            Mover.Move(0f);
+            Rigidbody.velocity = Vector2.zero;
+        }
     }
 }
