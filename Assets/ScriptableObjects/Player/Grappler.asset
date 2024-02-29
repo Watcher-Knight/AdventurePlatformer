@@ -16,7 +16,7 @@ MonoBehaviour:
   <Acceleration>k__BackingField:
     b_Value: 0.75
   <Slowdown>k__BackingField:
-    b_Value: 0.266
+    b_Value: 0.195
   <ControlReturnTime>k__BackingField: 0.5
   <SelectionTag>k__BackingField:
     Id: 1

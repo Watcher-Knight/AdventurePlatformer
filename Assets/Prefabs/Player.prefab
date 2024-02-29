@@ -36,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 137450484396674075}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6709179728170804839
 Rigidbody2D:
@@ -54,7 +54,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2fbe2eb0c34191d44aa22c401abd4f93, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -83,6 +83,7 @@ MonoBehaviour:
   Mover: {fileID: 5010491993714797008}
   Grappler: {fileID: 6824612720593678861}
   Jumper: {fileID: 8047237621241225846}
+  Transform: {fileID: 137450484396674075}
   PlatformLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -222,8 +223,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -889576143
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -12,7 +12,7 @@ public class Grappler
 
     public void Update(IData data, Collider2D target, Collider2D collider, MoverBehavior mover, float deltaTime)
     {
-        if (CheckTarget(target, collider)) ChangeTarget(target, data);
+        if (CheckTarget(target)) ChangeTarget(target, data);
         if (IsGrappling && TargetCollider != null)
         {
             MoveTowardsTarget(collider, data, deltaTime);
@@ -47,7 +47,7 @@ public class Grappler
     private void MoveTowardsTarget(Collider2D collider, IData data, float deltaTime)
     {
         Rigidbody2D rigidbody = collider.GetRigidbody();
-        Vector2 direction = (TargetCollider.transform.position - rigidbody.transform.position).normalized;
+        Vector2 direction = (TargetCollider.transform.position - collider.transform.position).normalized;
         Vector2 targetSpeed = direction * data.Speed;
         Vector2 speedDifference = targetSpeed - rigidbody.velocity;
 
@@ -56,7 +56,7 @@ public class Grappler
     private bool ReachedPoint(Collider2D collider) =>
         TargetCollider.bounds.Intersects(collider.bounds);
 
-    private bool CheckTarget(Collider2D target, Collider2D collider) =>
+    private bool CheckTarget(Collider2D target) =>
         target != TargetCollider && IsGrappling == false;
 
     private void ChangeTarget(Collider2D target, IData data)

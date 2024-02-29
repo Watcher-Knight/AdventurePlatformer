@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour, IEventListener
     [SerializeField][AutoAssign] private MoverBehavior Mover;
     [SerializeField][AutoAssign] private GrapplerBehavior Grappler;
     [SerializeField][AutoAssign] private JumperBehavior Jumper;
+    [SerializeField][AutoAssign] private Transform Transform;
     [SerializeField] private LayerMask PlatformLayer;
     [SerializeField] private EventTag ResetTag;
     [DisplayPlayMode] private MovementStateMachine.State CurrentState => StateMachine.CurrentState;
@@ -28,7 +29,7 @@ public class PlayerMovement : MonoBehaviour, IEventListener
     }
     private void Update()
     {
-        DataChannel.WriteTo(transform.position, CurrentState);
+        DataChannel.WriteTo(Transform.position, CurrentState);
     }
     public void Move(float direction) => Mover.Move(direction);
     public bool Jump()

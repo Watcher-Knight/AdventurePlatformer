@@ -110,5 +110,9 @@ public class MovementStateMachine
         if (IsMoving(rigidbody)) ToWalk();
     }
 
-    public void Reset() => CurrentState = State.Idle;
+    public void Reset()
+    {
+        CurrentState = State.Idle;
+        CanAirJump = true;
+    }
 }
