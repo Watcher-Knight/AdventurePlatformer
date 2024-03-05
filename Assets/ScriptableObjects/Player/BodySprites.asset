@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50b77795be7bfbc48a9b30aa9c921463, type: 3}
+  m_Name: BodySprites
+  m_EditorClassIdentifier: 
+  Up: {fileID: 21300000, guid: 35ba3bdd9e33e5b4384501674995cd02, type: 3}
+  Straight: {fileID: 21300000, guid: 7ebbec6dd371a1541b75c4d463cea25e, type: 3}
+  Down: {fileID: 21300000, guid: 96fbc1e7a05eaf4478b5fc8e5284d755, type: 3}
