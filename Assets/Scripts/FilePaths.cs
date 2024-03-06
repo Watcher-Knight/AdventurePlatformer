@@ -37,4 +37,5 @@ public static class CreateAssetPaths
     public const string ObjectTargeterData = Data + "/Object Targeter";
     public const string GrapplerData = Data + "/Grappler";
     public const string PlayerDataChannel = Data + "/Player Channel";
+    public const string BodySpriteData = Data + "/Body Sprites";
 }

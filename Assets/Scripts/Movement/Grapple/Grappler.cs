@@ -5,7 +5,7 @@ using UnityEngine;
 public class Grappler
 {
     private Collider2D TargetCollider;
-    private bool IsGrappling = false;
+    public bool IsGrappling = false;
     private float GravityScale;
     public bool CanGrapple(Collider2D collider) => !IsGrappling && TargetCollider != null && !TargetCollider.bounds.Intersects(collider.bounds);
     public Action OnFinish;

@@ -4,10 +4,15 @@ using UnityEngine;
 [AddComponentMenu("Test")]
 public class TestBehavior : MonoBehaviour
 {
-    //[SerializeField][AutoAssign] Collider2D Collider;
+    [SerializeField] private AnimatorBoolParameter Parameter;
+    [SerializeField] private AnimatorIntParameter IntParameter;
 
-    [Button] private void Test(Collider2D collider)
+    [Button] private void TestBool(bool value)
     {
-        Debug.Log(collider.bounds.center - new Vector3(0, collider.bounds.extents.y, 0));
+        Parameter.SetValue(value);
+    }
+    [Button] private void TestInt(int value)
+    {
+        IntParameter.SetValue(value);
     }
 }

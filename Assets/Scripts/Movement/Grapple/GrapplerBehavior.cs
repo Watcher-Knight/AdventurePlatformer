@@ -7,6 +7,8 @@ public class GrapplerBehavior : MonoBehaviour
 {
     [SerializeField][AutoAssign] private ObjectTargeterData TargeterData;
     [SerializeField][AutoAssign] private GrapplerData GrapplerData;
+    [SerializeField][AutoAssign] private BodySpriteData SpriteData;
+    [SerializeField][AutoAssign] private SpriteRenderer Renderer;
     [SerializeField][AutoAssign] private Transform Origin;
     [SerializeField][AutoAssign] private Collider2D Collider;
     [SerializeField][AutoAssign] private MoverBehavior Mover;
@@ -22,6 +24,7 @@ public class GrapplerBehavior : MonoBehaviour
     private void Update()
     {
         Targeter.Update(TargeterData, Origin.position, Direction, GrapplePointLayer);
+        UpdateSprite();
     }
     private void FixedUpdate()
     {
@@ -37,4 +40,14 @@ public class GrapplerBehavior : MonoBehaviour
     }
 
     public bool CanGrapple => Grappler.CanGrapple(Collider);
+
+    private void UpdateSprite()
+    {
+        if (!Grappler.IsGrappling)
+        {
+            if (Direction.y > 0.5) Renderer.sprite = SpriteData.Up;
+            else if (Direction.y > -0.5) Renderer.sprite = SpriteData.Straight;
+            else Renderer.sprite = SpriteData.Down;
+        }
+    }
 }
