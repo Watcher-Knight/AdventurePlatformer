@@ -5,8 +5,7 @@ public class MovementStateMachine
 {
     public enum State
     {
-        Idle,
-        Walk,
+        Default,
         Fall,
         Jump,
         Grapple
@@ -20,37 +19,19 @@ public class MovementStateMachine
         grappler.OnFinish += () => ToFall();
     }
 
-    public State CurrentState { get; private set; } = State.Idle;
+    public State CurrentState { get; private set; } = State.Default;
 
     private bool CanAirJump = true;
     private bool IsGrounded(BoxCollider2D collider, LayerMask platformLayer) =>
         Collisions.IsTouching(collider, ArchitectureLibrary.Direction.Down, platformLayer);
-    private bool IsMoving(Rigidbody2D rigidbody) =>
-        rigidbody.velocity.x > 0.05f || rigidbody.velocity.x < -0.05f;
 
-    private void ToIdle(Rigidbody2D rigidbody)
+    private void ToDefault()
     {
         switch (CurrentState)
         {
             case State.Fall:
-                CurrentState = State.Idle;
+                CurrentState = State.Default;
                 CanAirJump = true;
-                break;
-            case State.Walk:
-                if (!IsMoving(rigidbody))
-                {
-                    CurrentState = State.Idle;
-                    CanAirJump = true;
-                }
-                break;
-        }
-    }
-    private void ToWalk()
-    {
-        switch (CurrentState)
-        {
-            case State.Idle:
-                CurrentState = State.Walk;
                 break;
         }
     }
@@ -58,8 +39,7 @@ public class MovementStateMachine
     {
         switch (CurrentState)
         {
-            case State.Walk:
-            case State.Idle:
+            case State.Default:
             case State.Jump:
             case State.Grapple:
                 CurrentState = State.Fall;
@@ -70,8 +50,7 @@ public class MovementStateMachine
     {
         switch (CurrentState)
         {
-            case State.Idle:
-            case State.Walk:
+            case State.Default:
                 CurrentState = State.Jump;
                 return true;
 
@@ -92,8 +71,7 @@ public class MovementStateMachine
         {
             switch (CurrentState)
             {
-                case State.Idle:
-                case State.Walk:
+                case State.Default:
                 case State.Fall:
                 case State.Jump:
                     CurrentState = State.Grapple;
@@ -106,13 +84,20 @@ public class MovementStateMachine
 
     public void Update(Rigidbody2D rigidbody, BoxCollider2D collider, LayerMask layerMask)
     {
-        if (IsGrounded(collider, layerMask)) ToIdle(rigidbody);
-        if (IsMoving(rigidbody)) ToWalk();
+        switch (CurrentState)
+        {
+            case State.Fall:
+                if (IsGrounded(collider, layerMask)) ToDefault();
+                break;
+            case State.Default:
+                if (!IsGrounded(collider, layerMask)) ToFall();
+                break;
+        }
     }
 
     public void Reset()
     {
-        CurrentState = State.Idle;
+        CurrentState = State.Default;
         CanAirJump = true;
     }
 }
