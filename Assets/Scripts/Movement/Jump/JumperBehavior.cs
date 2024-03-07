@@ -22,7 +22,8 @@ public class JumperBehavior : MonoBehaviour
     private void UpdateAnimator()
     {
         if (JumpingParameter.Value != Jumper.IsJumping) JumpingParameter.Value = Jumper.IsJumping;
-        if (FallingParameter.Value != (Rigidbody.velocity.y < -0.1f)) FallingParameter.Value = Rigidbody.velocity.y < -0.1f;
+        if (FallingParameter.Value != (Rigidbody.velocity.y < -0.1f))
+            FallingParameter.Value = Rigidbody.velocity.y < -0.1f;
     }
     
     public void Jump() => Jumper.Jump(Data, Rigidbody);

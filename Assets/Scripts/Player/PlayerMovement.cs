@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour, IEventListener
     [SerializeField][AutoAssign] private GrapplerBehavior Grappler;
     [SerializeField][AutoAssign] private JumperBehavior Jumper;
     [SerializeField][AutoAssign] private Transform Transform;
+    [SerializeField] private AnimatorTriggerParameter ResetParameter;
+    [SerializeField] private Animator Animator;
     [SerializeField] private LayerMask PlatformLayer;
     [SerializeField] private EventTag ResetTag;
     [DisplayPlayMode] private MovementStateMachine.State CurrentState => StateMachine.CurrentState;
@@ -72,6 +74,7 @@ public class PlayerMovement : MonoBehaviour, IEventListener
             Jumper.Cancel();
             Mover.Move(0f);
             Rigidbody.velocity = Vector2.zero;
+            ResetParameter.Activate();
         }
     }
 }

@@ -4,15 +4,10 @@ using UnityEngine;
 [AddComponentMenu("Test")]
 public class TestBehavior : MonoBehaviour
 {
-    [SerializeField] private AnimatorBoolParameter Parameter;
-    [SerializeField] private AnimatorIntParameter IntParameter;
+    [SerializeField] private Animator Animator;
 
-    [Button] private void TestBool(bool value)
+    [Button] private void Test()
     {
-        Parameter.SetValue(value);
-    }
-    [Button] private void TestInt(int value)
-    {
-        IntParameter.SetValue(value);
+        Animator.Play("Entry", 0);
     }
 }
